@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="es.albarregas.beans.Profesor" table="profesores1a1">
+
+        <id name="id" type="integer">
+            <column name="idProf"/>
+            <generator class="foreign">
+                <param name="property">direccion</param>
+            </generator>
+        </id>
+        
+        <property name="nombre" length="20" not-null="true"/>
+        
+        <property name="ape1" length="15" not-null="true"/>
+        
+        <property name="ape2" length="15" update="false"/>
+        
+        <one-to-one cascade="all" class="es.albarregas.beans.Direccion" name="direccion" />
+    </class>
+</hibernate-mapping>
