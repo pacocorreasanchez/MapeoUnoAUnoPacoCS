@@ -14,8 +14,8 @@
 
         <div id="principal">
             <h2>Actualizaci&oacute;n de datos</h2>
-        <form method="post" action="conclusion?op=update">
-            <table>
+            <form method="post" action="conclusion?op=update">
+                <table>
                     <fieldset>
                         <legend>Datos personales: </legend>
                         <tr>
@@ -36,7 +36,9 @@
                         </tr>
 
                     </fieldset>
+                </table>
 
+                <table>
                     <fieldset>
                         <legend>Dirección: </legend>
                         <tr>
@@ -62,7 +64,7 @@
                         <td colspan="2"><input type="submit" name="enviar" value="Enviar" class="boton" /></td>
                     </tr>
                 </table>
-        </form>
+            </form>
         </div>
 
 

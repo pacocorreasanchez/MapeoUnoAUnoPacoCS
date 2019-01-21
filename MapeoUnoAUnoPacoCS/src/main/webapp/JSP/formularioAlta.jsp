@@ -31,8 +31,10 @@
                             <td><input type="text" name="ape2" /></td>
                         </tr>
 
-                    </fieldset>
+                    </fieldset>                
+                </table>
 
+                <table>
                     <fieldset>
                         <legend>Dirección: </legend>
                         <tr>

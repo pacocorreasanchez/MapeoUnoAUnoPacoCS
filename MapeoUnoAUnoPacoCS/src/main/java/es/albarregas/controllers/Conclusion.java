@@ -1,9 +1,10 @@
 package es.albarregas.controllers;
 
-
+import es.albarregas.beans.Direccion;
 import es.albarregas.dao.IProfesorDAO;
 import es.albarregas.daofactory.DAOFactory;
 import es.albarregas.beans.Profesor;
+import es.albarregas.dao.IGenericoDAO;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
@@ -16,7 +17,7 @@ import org.apache.commons.beanutils.BeanUtils;
 
 /**
  *
- * @author Jesus
+ * @author paco
  */
 @WebServlet(name = "Conclusion", urlPatterns = {"/conclusion"})
 public class Conclusion extends HttpServlet {
@@ -32,32 +33,32 @@ public class Conclusion extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         DAOFactory daof = DAOFactory.getDAOFactory();
-        IProfesorDAO pdao = daof.getProfesorDAO();
-//        IGenericoDAO gdao = daof.getGenericoDAO();
+        IGenericoDAO gdao = daof.getGenericoDAO();
+        
         Profesor profesor = new Profesor();
+        Direccion direccion = new Direccion();
+        
         String url = null;
+        
         switch (request.getParameter("op")) {
-            
-//            case "delete":
-//                profesor = adao.getOne(Integer.parseInt(request.getParameter("registro")));
-//                adao.delete(profesor);
-//                profesor = pdao.getOne(Integer.parseInt(request.getParameter("registro")));
-//                pdao.delete(profesor);
-//                url = "index.html";
-//                break;
             case "update":
-                try {
-                    BeanUtils.populate(profesor, request.getParameterMap());
+                profesor.setNombre(request.getParameter("nombre"));
+                profesor.setApe1(request.getParameter("ape1"));
+                profesor.setApe2(request.getParameter("ape2"));
 
-                } catch (IllegalAccessException | InvocationTargetException ex) {
-                    ex.printStackTrace();
-                }
-//                adao.update(profesor);
-                pdao.update(profesor);
+                direccion.setCalle(request.getParameter("calle"));
+                direccion.setNumero(Integer.parseInt(request.getParameter("numero")));
+                direccion.setPoblacion(request.getParameter("poblacion"));
+                direccion.setProvincia(request.getParameter("provincia"));
+
+                profesor.setDireccion(direccion);
+                gdao.update(profesor);
                 url = "index.html";
                 break;
         }
+        
         request.getRequestDispatcher(url).forward(request, response);
     }
 

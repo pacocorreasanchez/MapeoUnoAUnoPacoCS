@@ -9,6 +9,7 @@ package es.albarregas.controllers;
 import es.albarregas.dao.IProfesorDAO;
 import es.albarregas.daofactory.DAOFactory;
 import es.albarregas.beans.Profesor;
+import es.albarregas.dao.IGenericoDAO;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -21,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Jesus
+ * @author paco
  */
 @WebServlet(name = "Eleccion", urlPatterns = {"/eleccion"})
 public class Eleccion extends HttpServlet {
@@ -37,10 +38,12 @@ public class Eleccion extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         String url = null;
+        
         DAOFactory daof = DAOFactory.getDAOFactory();
-//        IGenericoDAO gdao = daof.getGenericoDAO();
-        IProfesorDAO pdao = daof.getProfesorDAO();
+        IGenericoDAO gdao = daof.getGenericoDAO();
+        
         switch(request.getParameter("op")){
             case "add":
                 url = "JSP/formularioAlta.jsp";
@@ -48,17 +51,15 @@ public class Eleccion extends HttpServlet {
             case "delete":
             case "update":
             case "list":
-//                String entidad = "Profesor";
-                List<Profesor> listaProf = pdao.get(); //new ArrayList<>();
-//                List<Object> lista = pdao.get(entidad);
-//                for(Object profesor : lista){
-//                    listaProf.add((Profesor)profesor);
-//                }
-//                listaProf = pdao.get();
+                String entidad = "Profesor";
+                List<Profesor> listaProf = new ArrayList<>();
+                List<Object> lista = gdao.get(entidad);
+                for(Object profesor : lista){
+                    listaProf.add((Profesor)profesor);
+                }
                 request.setAttribute("listado", listaProf);
-                
-            
         }
+        
         switch(request.getParameter("op")){
             case "list":
                 url = "JSP/listado.jsp";
